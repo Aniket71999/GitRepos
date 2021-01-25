@@ -1,0 +1,141 @@
+#include <iostream>
+
+using namespace std;
+
+class currency
+{
+ public:
+    int submitcurrency(int getcash,int setcash)
+    {
+        if(getcash>0)
+        {setcash+=setcash;
+        cout<<"submitted cash : "<<endl;}
+        return getcash;
+        
+    }
+    //virtual int submitcurrency()=0;
+    //virtual int withdrawcurrency()=0;
+    };
+    
+class twothousand: public currency
+{
+    public:
+    int withdrawcurrency4(int *getcash,int count,int remain) {
+     if(*getcash>=2000)
+    {
+     count=*getcash/2000;
+     remain=*getcash%2000;
+     cout<<"dispensing 2000 rs notes = "<<count<<endl;
+     }
+     if(remain>0)
+    {
+     *getcash=remain;
+     }
+     else 
+     return remain;
+    }
+};
+
+class fivehundred: public currency
+{
+    public:
+    int withdrawcurrency3(int *getcash,int count,int remain) {
+         if(*getcash>=500)
+    {
+     count=*getcash/500;
+     remain=*getcash%500;
+     cout<<"dispensing 500 rs notes = "<<count<<endl;
+     }
+     if(remain>0)
+    { *getcash=remain;
+     return remain;
+     }
+     else 
+     return remain;
+    }    
+};
+
+class twohundred: public currency
+{
+    public:
+    int withdrawcurrency2(int *getcash,int count,int remain) {
+     if(*getcash>=200)
+    {
+     count=*getcash/200;
+     remain=*getcash%200;
+     cout<<"dispensing 200 rs notes = "<<count<<endl;
+     }
+     if(remain>0)
+    { *getcash=remain;
+     return remain;      
+     }
+     else 
+     return remain;
+    }
+};
+
+class hundred: public currency
+{
+    public:
+    
+    int withdrawcurrency1(int getcash,int count,int remain) 
+    {
+     twothousand tt;
+     fivehundred fh;
+     twohundred th;
+     tt.withdrawcurrency4(&getcash,count,remain);
+     fh.withdrawcurrency3(&getcash,count,remain);
+     th.withdrawcurrency2(&getcash,count,remain);
+     if(getcash>=100)
+    {
+     count=getcash/100;
+     remain=getcash%100;
+     cout<<"dispensing 100 rs notes = "<<count<<endl;
+     }
+     if(remain>0)
+    { getcash=remain;
+     return remain;      
+     }
+     else 
+     return remain;
+    }
+};
+
+int main()
+{ 
+  int ch,getcash,setcash=0,count,remain;
+  currency c;
+  hundred h;
+  cout<<"press 1 to submit currency and press 2 to withdraw currency"<<endl;
+  //system("clear"); 
+  cin>>ch;
+  switch(ch)
+  {
+   case 1:
+   cout<<"submit the cash in terms of 100,200,500 and 2000 notes only"<<endl;
+   cout<<"cash submit"<<endl<<"enter amount :"<<endl;
+   cin>>getcash; 
+    if (getcash % 10 == 0)
+    cout<<c.submitcurrency(getcash, setcash)<<endl;
+    else
+    cout<<"Amount must be mutiple of 10s, Try again!";
+    break;
+   
+   case 2:
+   cout<<"cash withdraw"<<endl<<"enter amount :"<<endl;
+   cin>>getcash;
+    if (getcash % 10 != 0)
+    cout<<"Amount must be mutiple of 10s, Try again!";
+    else if (getcash % 10 == 0)
+    cout<<" "<<h.withdrawcurrency1(getcash,count,remain)<<endl;
+    else
+    cout<<"insufficient balance";
+    break;
+   
+   default:
+   cout<<"invalid choice";
+  
+  }
+  
+    return 0;
+}
